@@ -20,4 +20,28 @@ router.get('/properties', function(req, res) {
   });
   });
 
+
+  router.get('/properties/new', function(req, res) {
+    res.render('new');
+  
+  });
+  
+
+//TODO
+router.post('/properties', function(req, res) {
+	collection.insert({ 
+		title: req.body.title,
+		genre: req.body.genre,
+		img: req.body.image,
+		description:req.body.desc
+	}, function(err, video){
+		if (err) throw err;
+		// if insert is successfull, it will return newly inserted object
+	  	//res.json(video);
+		res.redirect('/videos');
+	});
+});
+
+
+
 module.exports = router;

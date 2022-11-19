@@ -1,0 +1,35 @@
+<%- include('partials/header') %>
+
+//TODO - Form fields to match our data
+<div class="container">
+    <form action="/properties" method="POST">
+        <div class="form-group col-md-2">
+        <label>Title</label>
+        <input type="text" id="title" name="title" class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+        <label>Property Type</label>
+        <input type="text" id="genre" name="genre" class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+            <label>Image name</label>
+            <input type="text" id="image" name="image" class="form-control">
+            </div>
+    
+        <div class="form-group col-md-2">
+        <label>Desc</label>
+        <textarea id="desc" name="desc" class="form-control">
+        </textarea>
+        </div>
+        <div class="form-group col-md-2">
+        <button type="submit" id="add" class="btn btn-outline-dark">Add Video</button>
+        </div>
+    
+    </form>
+    
+    <a href="/">Cancel</a>
+    </div>
+    
+    
+
+<%- include('partials/footer') %>
