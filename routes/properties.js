@@ -3,7 +3,7 @@ var router = express.Router();
 //var propertiesJSON = require("../properties.json")
 
 var monk = require('monk');
-var db = monk('localhost:27017/wpl-assign4');
+var db = monk('localhost:27017/airbnb');
 var collection = db.get('properties');
 
 
@@ -24,4 +24,18 @@ router.get('/:id', function(req, res) {
     });
 });
     
+
+
+router.delete('/:id', function (req, res) {
+    collection.remove({ '_id': req.params.id }, function (err, property) {
+      if (err) throw err;
+      res.redirect('/properties')
+    })
+  })
+
+
+router.put('/'. function () {
+    
+})
+  
 module.exports = router;

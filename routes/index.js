@@ -2,7 +2,7 @@ var express = require('express');
 //var propertiesJSON = require("../properties.json")
 var router = express.Router();
 var monk = require('monk');
-var db = monk('localhost:27017/wpl-assign4');
+var db = monk('localhost:27017/airbnb');
 var collection = db.get('properties');
 var collection_resrv = db.get('reservations');
 
@@ -104,22 +104,38 @@ router.post('/properties', function (req, res) {
   });
 });
 
+
+router.get('/reservations/new', function(req, res) {
+  res.render('new_reservation')
+
+});
+
+router.get('/reservations', function(req, res) {
+  collection_resrv.find({guestID: req.query.userID}, function (err, reservations) {
+    if (err) throw err;
+    res.json(reservations); //TODO - show view
+  });
+}) 
+
 router.get('/reservations/:id', function (req, res) {
-  collection.findOne({ _id: req.params.id }, function (err, reservation) {
+  var data = {}
+  collection_resrv.findOne({ _id: req.params.id }, function (err, reservation) {
     if (err) throw err;
-    res.render('show_reservation', { reservation: reservation });
-  });
-});
+    data[reservation] = reservation
 
-router.post('/reservations/:id', function (req, res) {
-  collection.remove({ _id: req.params.id }, function (err, reservation) {
+  });
+  collection.findOne({ _id: data[reservation].propertyID }, function (err, property) {
     if (err) throw err;
-    res.redirect('/properties');
+    data[property] = property
   });
-});
+  res.render('show_reservation', data ); 
+  console.log(data)
 
+  
+});
 
 router.post('/reservations', function (req, res) {
+  
   collection_resrv.insert({
     guest_id: req.query.userId,
     check_in_date: req.body.check_in_date,

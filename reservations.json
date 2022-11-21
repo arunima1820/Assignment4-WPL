@@ -1,16 +1,21 @@
-[{ 
-    "property_id": "1", 
-    "guestID": "number",
-    "status": "active", 
-    "checkInDate": "string", 
-    "checkOutDate": "string", 
-    "amountDue": "number" 
-},
-{ 
-    "propertyID": "2", 
-    "guestID": "number",
-    "status": "canceled", 
-    "checkInDate": "string", 
-    "checkOutDate": "string", 
-    "amountDue": "number" 
+[{
+  "_id": {
+    "$oid": "637afd9fa75e809394d9b46f"
+  },
+  "property_id": "637915c4a75e809394d9b463",
+  "guestID": "637b035fa75e809394d9b477",
+  "status": "active",
+  "checkInDate": "string",
+  "checkOutDate": "string",
+  "amountDue": "number"
+},{
+  "_id": {
+    "$oid": "637afd9fa75e809394d9b470"
+  },
+  "propertyID": "637915c4a75e809394d9b463",
+  "guestID": "637b035fa75e809394d9b478",
+  "status": "canceled",
+  "checkInDate": "string",
+  "checkOutDate": "string",
+  "amountDue": "number"
 }]

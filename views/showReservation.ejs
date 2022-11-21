@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+  <h1> Reservation Details </h1>
+
+  <p class="card-text">Status: <%= reservation.status %>
+  </p>
+  <p class="card-text">Check-In Date: <%= reservation.checkInDate %>
+  </p>
+  <p class="card-text">Check-Out Date: <%= reservation.checkOutDate %>
+  </p>
+  <p class="card-text">Amount Due: <%= reservation.amountDue %>
+  </p>
+
+  <div class="form-group col-md-3">
+    <form action="/reservation/delete/<%= reservation._id %>" method="POST">
+      <button type="submit" id="add" class="btn btn-outline-dark">Cancel Reservation</button>
+    </form>
+  </div>
+  <a href="/">Back to list</a>
+
+
+  <%- include('partials/footer') %>
