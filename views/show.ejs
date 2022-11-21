@@ -1,0 +1,95 @@
+<%- include('partials/header') %>
+
+<div class="card" style="width: 18rem;">
+    <img src="images/<%= property.img %>" class="thumbnail" alt="..." style="width:200px; height:200px">
+    <div class="card-body">
+      <h5 class="card-title"><%= property.title %></h5>
+      <p class="card-text"><%= property.description %></p>
+      <a href="/properties/<%= property._id %>" class="btn btn-primary">Show details</a>
+
+    
+    </div>
+  </div>
+
+<div class="container">
+    <form action="/properties/update/<%= property._id %>" method="POST">
+        <div class="form-group col-md-8">
+        <label>Title</label>
+        <input type="text" id="title" name="title" value="<%= property.title%>" class="form-control">
+        </div>
+        <div class="form-group col-md-6">
+        <label>Property Type</label>
+        <input type="text" id="propertyType" value="<%= property.propertyType%>" name="propertyType" class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+            <label>Price Per Night</label>
+            <input type="text" id="pricePerNight" value="<%= property.pricePerNight%>" name="pricePerNight" class="form-control">
+            </div>
+        <div class="form-group col-md-2">
+            <label>Service Fee</label>
+            <input type="text" id="serviceFee" name="serviceFee" value="<%= property.serviceFee%>" class="form-control">
+            </div>
+        <div class="form-group col-md-2">
+            <label>Cleaning Fee</label>
+            <input type="text" id="cleaningFee" name="cleaningFee" value="<%= property.cleaningFee%>" class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+        <label>Bedrooms</label>
+        <input type="text" id="bedrooms" name="bedrooms" value="<%= property.bedrooms%>" class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+            <label>Beds</label>
+            <input type="number" id="beds" name="beds" value="<%= property.beds%>" class="form-control">
+            </div>
+        <div class="form-group col-md-2">
+            <label>Bathrooms</label>
+            <input type="number" id="bathrooms" name="bathrooms" value="<%= property.bathrooms%>" class="form-control">
+            </div>        
+        <div class="form-group col-md-6">
+        <label>Amenities</label>
+        <textarea id="amenities" name="amenities" class="form-control">
+            <%= property.amenities%>
+        </textarea>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Location</label>
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" value="<%= property.location.city%>" class="form-control">
+            <label for="state">state</label>
+            <input type="text" id="state" name="state" value="<%= property.location.state%>" class="form-control">
+            <label for="country">Country</label>
+            <input type="text" id="country" name="country" value="<%= property.location.country%>" class="form-control">
+            </div>
+        <div class="form-group col-md-2">
+            <label>Pets Allowed</label>
+            <input type="radio" name="pets" value="No Pets" class="form-control"> No
+            <input type="radio" name="pets" value="Pets Allowed" class="form-control" checked> Yes
+            </div>
+        <div class="form-group col-md-2">
+            <label>Smoking Allowed</label>
+            <input type="radio" name="smoking" value="No Smoking" class="form-control" checked> No
+            <input type="radio" name="smoking" value="Smoking Allowed" class="form-control"> Yes
+            </div>
+        <div class="form-group col-md-6">
+            <label>Image name</label>
+            <input type="text" id="image" name="image"  value="<%= property.img%>" class="form-control">
+            </div>
+    
+        <div class="form-group col-md-6">
+        <label>Desc</label>
+        <textarea id="desc" name="desc" class="form-control">
+            <%= property.description %>
+        </textarea>
+        </div>
+        <div class="form-group col-md-3">
+        <button type="submit" id="add" class="btn btn-outline-dark">Update Property</button>
+        </div>
+    
+    </form>
+    
+    <a href="/">Cancel</a>
+    </div>
+    
+    
+
+<%- include('partials/footer') %>
