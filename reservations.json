@@ -1,16 +1,14 @@
 [{ 
-    "propertyID": "number", 
+    "property_id": "1", 
     "guestID": "number",
-
     "status": "active", 
     "checkInDate": "string", 
     "checkOutDate": "string", 
     "amountDue": "number" 
 },
 { 
-    "propertyID": "number", 
+    "propertyID": "2", 
     "guestID": "number",
-
     "status": "canceled", 
     "checkInDate": "string", 
     "checkOutDate": "string", 
