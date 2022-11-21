@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
   
 
     router.post('/properties/delete/:id', function(req, res) {
-      collection.findByIdAndDelete({'_id': req.params.id }, function(err, property) {
+      collection.remove({'_id': req.params.id }, function(err, property) {
         if (err) throw err;
         res.redirect('/properties')
       })
