@@ -1,52 +1,52 @@
 <%- include('partials/header') %>
 
 <div class="container">
-    <form action="/properties" method="POST">
+    <form action="/properties/<%= property._id %>" method="PUT">
         <div class="form-group col-md-2">
         <label>Title</label>
-        <input type="text" id="title" name="title" class="form-control">
+        <input type="text" id="title" name="title" value="<%= property.title%>" class="form-control">
         </div>
         <div class="form-group col-md-2">
         <label>Property Type</label>
-        <input type="text" id="propertyType" name="propertyType" class="form-control">
+        <input type="text" id="propertyType" value="<%= property.propertyType%>" name="propertyType" class="form-control">
         </div>
         <div class="form-group col-md-2">
             <label>Price Per Night</label>
-            <input type="number" id="pricePerNight" name="pricePerNight" class="form-control">
+            <input type="text" id="pricePerNight" value="<%= property.pricePerNight%>" name="pricePerNight" class="form-control">
             </div>
         <div class="form-group col-md-2">
             <label>Service Fee</label>
-            <input type="number" id="serviceFee" name="serviceFee" class="form-control">
+            <input type="text" id="serviceFee" name="serviceFee" value="<%= property.serviceFee%>" class="form-control">
             </div>
         <div class="form-group col-md-2">
             <label>Cleaning Fee</label>
-            <input type="number" id="cleaningFee" name="cleaningFee" class="form-control">
+            <input type="text" id="cleaningFee" name="cleaningFee" value="<%= property.cleaningFee%>" class="form-control">
         </div>
         <div class="form-group col-md-2">
         <label>Bedrooms</label>
-        <input type="number" id="bedrooms" name="bedrooms" class="form-control">
+        <input type="text" id="bedrooms" name="bedrooms" value="<%= property.bedrooms%>" class="form-control">
         </div>
         <div class="form-group col-md-2">
             <label>Beds</label>
-            <input type="number" id="beds" name="beds" class="form-control">
+            <input type="number" id="beds" name="beds" value="<%= property.beds%>" class="form-control">
             </div>
         <div class="form-group col-md-2">
             <label>Bathrooms</label>
-            <input type="number" id="bathrooms" name="bathrooms" class="form-control">
+            <input type="number" id="bathrooms" name="bathrooms" value="<%= property.bathrooms%>" class="form-control">
             </div>        
         <div class="form-group col-md-2">
         <label>Amenities</label>
-        <textarea id="amenities" name="amenities" class="form-control">
+        <textarea id="amenities" name="amenities" value="<%= property.amenities%>" class="form-control">
         </textarea>
         </div>
         <div class="form-group col-md-2">
             <label>Location</label>
             <label for="city">City</label>
-            <input type="text" id="city" name="city" class="form-control">
+            <input type="text" id="city" name="city" value="<%= property.location.city%>" class="form-control">
             <label for="state">state</label>
-            <input type="text" id="state" name="state" class="form-control">
+            <input type="text" id="state" name="state" value="<%= property.location.state%>" class="form-control">
             <label for="country">Country</label>
-            <input type="text" id="country" name="country" class="form-control">
+            <input type="text" id="country" name="country" value="<%= property.location.country%>" class="form-control">
             </div>
         <div class="form-group col-md-2">
             <label>Pets Allowed</label>
@@ -65,11 +65,11 @@
     
         <div class="form-group col-md-2">
         <label>Desc</label>
-        <textarea id="desc" name="desc" class="form-control">
+        <textarea id="desc" name="desc" value="<%= property.description %>" class="form-control">
         </textarea>
         </div>
         <div class="form-group col-md-2">
-        <button type="submit" id="add" class="btn btn-outline-dark">Add Property</button>
+        <button type="submit" id="add" class="btn btn-outline-dark">Update Property</button>
         </div>
     
     </form>
