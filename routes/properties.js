@@ -34,8 +34,34 @@ router.delete('/:id', function (req, res) {
   })
 
 
-router.put('/'. function () {
-    
+router.put('/:id', function () {
+    collection.findOneAndUpdate({ '_id': req.params.id },
+    {
+      $set:
+      {
+        title: req.body.title,
+        description: req.body.desc,
+        pricePerNight: req.body.pricePerNight,
+        serviceFee: req.body.serviceFee,
+        cleaningFee: req.body.cleaningFee,
+        bedrooms: req.body.bedrooms,
+        beds: req.body.beds,
+        bathrooms: req.body.bathrooms,
+        location: {
+          city: req.body.city,
+          state: req.body.state,
+          country: req.body.country
+        },
+        pets: req.body.pets,
+        smoking: req.body.smoking,
+        propertyType: req.body.propertyType,
+        img: req.body.image,
+      }
+    },
+    function (err, result) {
+      if (err) throw err;
+      res.redirect('/properties');
+    });
 })
   
 module.exports = router;

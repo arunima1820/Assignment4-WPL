@@ -14,7 +14,7 @@ router.get('/new', function(req, res) {
 
 
 router.delete('/reservations/:id', function (req, res) {
-    collection_resrv.remove({ _id: req.params.id }, function (err, reservation) {
+    collection.remove({ _id: req.params.id }, function (err, reservation) {
       if (err) throw err;
       res.redirect('/properties');
     });
@@ -23,7 +23,7 @@ router.delete('/reservations/:id', function (req, res) {
   
 
 router.get('/', function(req, res) {
-    collection_resrv.find({guestID: req.query.userID}, function (err, reservations) {
+    collection.find({guestID: req.query.userID}, function (err, reservations) {
       if (err) throw err;
       res.json(reservations); //TODO - show view
     });

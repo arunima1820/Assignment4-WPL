@@ -33,6 +33,19 @@ router.get('/properties/update/:id', function (req, res) {
   });
 });
 
+
+router.put('/properties/:id', function (req, res) {
+  collection.findOneAndUpdate({ '_id': req.params.id },
+  {
+    $set: req.body
+  },
+  function (err, result) {
+    if (err) throw err;
+    res.redirect('/properties');
+  });
+})
+
+
 router.post('/properties/update/:id', function (req, res) {
   collection.findOneAndUpdate({ '_id': req.params.id },
     {
