@@ -1,0 +1,21 @@
+[{ 
+    "_id": "0001", 
+    "name": { "firstName": "Joe", "lastName": "Stand" }, 
+    "email": "joestand0001@example.com", 
+    "phoneNumber": "469-123-4567", 
+    "address": "Campbell", 
+    "password": "burgandy", 
+    "billingInfo": { "cardNumber": "1234567890", "securityCode": "123", "billingAddress": "Campbell" }, 
+    "type": "host" 
+},
+{ 
+    "_id": "0002", 
+    "name": { "firstName": "Jas", "lastName": "Capri" }, 
+    "email": "jascapri0002@example.com", 
+    "phoneNumber": "469-456-7890", 
+    "address": "Franklin", 
+    "password": "maroon", 
+    "billingInfo": { "cardNumber": "0987654321", "securityCode": "321", "billingAddress": "Franklin" }, 
+    "type": "guest"
+}
+]

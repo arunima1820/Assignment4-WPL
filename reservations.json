@@ -1,0 +1,18 @@
+[{ 
+    "propertyID": "number", 
+    "guestID": "number",
+
+    "status": "active", 
+    "checkInDate": "string", 
+    "checkOutDate": "string", 
+    "amountDue": "number" 
+},
+{ 
+    "propertyID": "number", 
+    "guestID": "number",
+
+    "status": "canceled", 
+    "checkInDate": "string", 
+    "checkOutDate": "string", 
+    "amountDue": "number" 
+}]
