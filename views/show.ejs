@@ -5,7 +5,15 @@
     <div class="card-body">
       <h5 class="card-title"><%= property.title %></h5>
       <p class="card-text"><%= property.description %></p>
-      <a href="/properties/<%= property._id %>" class="btn btn-primary">Show details</a>
+      <p class="card-text"><%= property.pricePerNight %></p>
+      <p class="card-text"><%= property.serviceFee %></p>
+      <p class="card-text"><%= property.cleaningFee %></p>
+      <p class="card-text"><%= property.bedrooms %></p>
+      <p class="card-text"><%= property.amenities %></p>
+      <p class="card-text"><%= property.description %></p>
+      <div class="form-group col-md-3">
+        <button type="submit" id="add" class="btn btn-outline-dark">Home</button>
+      </div>
 
     
     </div>
