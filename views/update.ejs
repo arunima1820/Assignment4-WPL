@@ -1,12 +1,12 @@
 <%- include('partials/header') %>
 
 <div class="container">
-    <form action="/properties/<%= property._id %>" method="PUT">
-        <div class="form-group col-md-2">
+    <form action="/properties/update/<%= property._id %>" method="POST">
+        <div class="form-group col-md-8">
         <label>Title</label>
         <input type="text" id="title" name="title" value="<%= property.title%>" class="form-control">
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-6">
         <label>Property Type</label>
         <input type="text" id="propertyType" value="<%= property.propertyType%>" name="propertyType" class="form-control">
         </div>
@@ -34,12 +34,13 @@
             <label>Bathrooms</label>
             <input type="number" id="bathrooms" name="bathrooms" value="<%= property.bathrooms%>" class="form-control">
             </div>        
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-6">
         <label>Amenities</label>
-        <textarea id="amenities" name="amenities" value="<%= property.amenities%>" class="form-control">
+        <textarea id="amenities" name="amenities" class="form-control">
+            <%= property.amenities%>
         </textarea>
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-6">
             <label>Location</label>
             <label for="city">City</label>
             <input type="text" id="city" name="city" value="<%= property.location.city%>" class="form-control">
@@ -51,24 +52,25 @@
         <div class="form-group col-md-2">
             <label>Pets Allowed</label>
             <input type="radio" name="pets" value="No Pets" class="form-control"> No
-            <input type="radio" name="pets" value="Pets Allowed" class="form-control"> Yes
+            <input type="radio" name="pets" value="Pets Allowed" class="form-control" checked> Yes
             </div>
         <div class="form-group col-md-2">
             <label>Smoking Allowed</label>
-            <input type="radio" name="smoking" value="No Smoking" class="form-control"> No
+            <input type="radio" name="smoking" value="No Smoking" class="form-control" checked> No
             <input type="radio" name="smoking" value="Smoking Allowed" class="form-control"> Yes
             </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-6">
             <label>Image name</label>
-            <input type="text" id="image" name="image" class="form-control">
+            <input type="text" id="image" name="image"  value="<%= property.img%>" class="form-control">
             </div>
     
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-6">
         <label>Desc</label>
-        <textarea id="desc" name="desc" value="<%= property.description %>" class="form-control">
+        <textarea id="desc" name="desc" class="form-control">
+            <%= property.description %>
         </textarea>
         </div>
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-3">
         <button type="submit" id="add" class="btn btn-outline-dark">Update Property</button>
         </div>
     

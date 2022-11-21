@@ -15,8 +15,16 @@ router.get('/', function(req, res, next) {
     });
     });
   
-    router.put('/properties/:id', function(req, res) {
-      collection.update({'_id': req.params.id }, 
+
+    router.post('/properties/delete/:id', function(req, res) {
+      collection.findByIdAndDelete({'_id': req.params.id }, function(err, property) {
+        if (err) throw err;
+        res.redirect('/properties')
+      })
+    })
+
+    router.post('/properties/update/:id', function(req, res) {
+      collection.findOneAndUpdate({'_id': req.params.id }, 
       {$set: 
         { 
           title: req.body.title,
