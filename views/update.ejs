@@ -73,9 +73,12 @@
         <div class="form-group col-md-3">
         <button type="submit" id="add" class="btn btn-outline-dark">Update Property</button>
         </div>
-    
     </form>
     
+    <form action="/properties/delete/<%= property._id %>" method="POST">
+        <button type="submit" id="add" class="btn btn-outline-dark">Delete Property</button>
+    </form>
+
     <a href="/">Cancel</a>
     </div>
     

@@ -8,7 +8,7 @@
     <div class="container-fluid py-5">
       <h1 class="display-5 fw-bold">AirBnB Application</h1>
       <p class="col-md-8 fs-4">Selected list of most popular properties</p>
-      <a href="/properties/new" class="btn btn-primary btn-lg" type="button">Add video</a>
+      <a href="/properties/new" class="btn btn-primary btn-lg" type="button">Add Property</a>
     </div>
   </div>
 
@@ -17,16 +17,26 @@
 
 
 <% properties.forEach(function(property) { %>
-    <div class="card" style="width: 18rem;">
-        <img src="images/<%= property.img %>" class="thumbnail" alt="..." style="width:200px; height:200px">
-        <div class="card-body">
-          <h5 class="card-title"><%= property.title %></h5>
-          <p class="card-text"><%= property.description %></p>
-          <a href="/properties/<%= property._id %>" class="btn btn-primary">Show details</a>
 
-        
+  <div class="card mb-3" style="max-width: 100%;">
+    <div class="row g-0">
+        <div class="col-fluid col-md-4">
+            <img src="images/<%= property.img %>" class="img-fluid rounded-start" alt="...">
         </div>
-      </div>
+        <div class="col-md-8">
+            <div class="card-body" style="color:#21081a!important">
+                <h5 class="card-title"><%= property.title %></h5>
+                <p class="card-text"><%= property.bedrooms %> bedrooms - <%= property.beds %> beds - <%= property.bathrooms %> bath
+                </p>
+                <p>
+                  <a href="/properties/<%= property._id %>" class="btn btn-primary">Show</a>
+                  <a href="/properties/<%= property._id %>" class="btn btn-secondary">Edit</a> //TODO
+                </p>
+                <p class="card-text"><small class="text-muted"><%= property.location.city %>, <%= property.location.state %></small></p>
+            </div>
+        </div>
+    </div>
+</div>
 <% }) %>
 
 </div>
