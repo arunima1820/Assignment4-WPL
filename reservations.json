@@ -1,58 +1,81 @@
-[{ 
-    "property_id": "1", 
-    "guestID": "number",
-    "status": "active", 
-    "checkInDate": "02/15/2022", 
-    "checkOutDate": "03/16/2022", 
-    "amountDue": "2700" 
-},
-{ 
-    "propertyID": "2", 
-    "guestID": "number",
-    "status": "canceled", 
-    "checkInDate": "08/01/2022", 
-    "checkOutDate": "08/23/2022", 
-    "amountDue": "8000" 
-},
-{ 
-    "propertyID": "3", 
-    "guestID": "number",
-    "status": "active", 
-    "checkInDate": "05/28/2022", 
-    "checkOutDate": "05/30/2022", 
-    "amountDue": "760" 
-},
-{ 
-    "propertyID": "4", 
-    "guestID": "number",
-    "status": "active", 
-    "checkInDate": "10/12/2022", 
-    "checkOutDate": "11/20/2022", 
-    "amountDue": "9230" 
-},
-{ 
-    "propertyID": "5", 
-    "guestID": "number",
-    "status": "active", 
-    "checkInDate": "04/18/2022", 
-    "checkOutDate": "06/5/2022", 
-    "amountDue": "5697" 
-},
-{ 
-    "propertyID": "6", 
-    "guestID": "number",
-    "status": "active", 
-    "checkInDate": "02/05/2022", 
-    "checkOutDate": "04/05/2022", 
-    "amountDue": "9456" 
-},
-{ 
-    "propertyID": "7", 
-    "guestID": "number",
-    "status": "active", 
-    "checkInDate": "10/10/2022", 
-    "checkOutDate": "10/11/2022", 
-    "amountDue": "500" 
-}
-
-]
+[{
+  "_id": {
+    "$oid": "637afd9fa75e809394d9b46f"
+  },
+  "property_id": "637915c4a75e809394d9b463",
+  "guestID": "637b035fa75e809394d9b477",
+  "status": "active",
+  "checkInDate": "string",
+  "checkOutDate": "string",
+  "amountDue": "number"
+},{
+  "_id": {
+    "$oid": "637b0f24a75e809394d9b48f"
+  },
+  "property_id": "1",
+  "guestID": "637b035fa75e809394d9b477",
+  "status": "active",
+  "checkInDate": "02/15/2022",
+  "checkOutDate": "03/16/2022",
+  "amountDue": "2700"
+},{
+  "_id": {
+    "$oid": "637b0f24a75e809394d9b490"
+  },
+  "propertyID": "2",
+  "guestID": "637b035fa75e809394d9b478",
+  "status": "canceled",
+  "checkInDate": "08/01/2022",
+  "checkOutDate": "08/23/2022",
+  "amountDue": "8000"
+},{
+  "_id": {
+    "$oid": "637b0f24a75e809394d9b491"
+  },
+  "propertyID": "3",
+  "guestID": "637b035fa75e809394d9b477",
+  "status": "active",
+  "checkInDate": "05/28/2022",
+  "checkOutDate": "05/30/2022",
+  "amountDue": "760"
+},{
+  "_id": {
+    "$oid": "637b0f24a75e809394d9b492"
+  },
+  "propertyID": "4",
+  "guestID": "637b035fa75e809394d9b478",
+  "status": "active",
+  "checkInDate": "10/12/2022",
+  "checkOutDate": "11/20/2022",
+  "amountDue": "9230"
+},{
+  "_id": {
+    "$oid": "637b0f24a75e809394d9b493"
+  },
+  "propertyID": "5",
+  "guestID": "637b035fa75e809394d9b477",
+  "status": "active",
+  "checkInDate": "04/18/2022",
+  "checkOutDate": "06/5/2022",
+  "amountDue": "5697"
+},{
+  "_id": {
+    "$oid": "637b0f24a75e809394d9b494"
+  },
+  "propertyID": "6",
+  "guestID": "637b035fa75e809394d9b477",
+  "status": "active",
+  "checkInDate": "02/05/2022",
+  "checkOutDate": "04/05/2022",
+  "amountDue": "9456"
+},{
+  "_id": {
+    "$oid": "637b0f24a75e809394d9b495"
+  },
+  "propertyID": "7",
+  "guestID": "637b035fa75e809394d9b478",
+  "status": "active",
+  "checkInDate": "10/10/2022",
+  "checkOutDate": "10/11/2022",
+  "amountDue": "500"
+}]
