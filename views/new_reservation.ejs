@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+
+<div class="container">
+    <form action="/properties" method="POST">
+        <!-- <div class="form-group col-md-2">
+            <label>Title</label>
+            <input type="text" id="title" name="title" class="form-control">
+        </div> -->
+        <div class="form-group col-md-2">
+            <label>Guest ID</label>
+            <input type="text" id="guest_id" name="gues_id" class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+            <label>Check-In Date</label>
+            <input type="text" id="image" name="image" class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+            <label>Check-Out Date</label>
+            <input type="text" id="image" name="image" class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+            <label>Amount Due</label>
+            <input type="text" id="amount_due" name="amount_due" class="form-control">
+        </div>
+
+        <!-- <div class="form-group col-md-2">
+            <label>Desc</label>
+            <textarea id="desc" name="desc" class="form-control"></textarea>
+        </div> -->
+
+        <div class="form-group col-md-2">
+            <button type="submit" id="add" class="btn btn-outline-dark">Reserve</button>
+        </div>
+    
+    </form>
+    
+    <a href="/">Cancel</a>
+    </div>
+    
+    
+
+<%- include('partials/footer') %>
