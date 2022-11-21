@@ -1,5 +1,5 @@
 [{ 
-    "_id": "0001", 
+    "user_id": "0001", 
     "name": { "firstName": "Joe", "lastName": "Stand" }, 
     "email": "joestand0001@example.com", 
     "phoneNumber": "469-123-4567", 
@@ -9,7 +9,7 @@
     "type": "host" 
 },
 { 
-    "_id": "0002", 
+    "user_id": "0002", 
     "name": { "firstName": "Jas", "lastName": "Capri" }, 
     "email": "jascapri0002@example.com", 
     "phoneNumber": "469-456-7890", 
