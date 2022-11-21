@@ -23,6 +23,13 @@ router.get('/', function(req, res, next) {
       })
     })
 
+    router.get('/properties/update/:id', function(req, res) {
+      collection.findOne({ _id: req.params.id }, function(err, property){
+        if (err) throw err;
+        res.render('update', { property : property });
+        });
+    });
+
     router.post('/properties/update/:id', function(req, res) {
       collection.findOneAndUpdate({'_id': req.params.id }, 
       {$set: 
@@ -61,7 +68,7 @@ router.get('/', function(req, res, next) {
   router.get('/properties/:id', function(req, res) {
     collection.findOne({_id: req.params.id }, function(err, property){
     if (err) throw err;
-    res.render('update', { property : property });
+    res.render('show', { property : property });
     });
   });
   

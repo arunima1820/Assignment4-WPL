@@ -1,8 +1,8 @@
 <%- include('partials/header') %>
 
-<div class="card" style="width: 18rem;">
+<div class="card" style="width: 100%;">
     <h1> Property Details </h1>
-    <img src="images/<%= property.img %>" class="thumbnail" alt="..." style="width:200px; height:200px">
+    <img src="images/<%= property.img %>" class="img-fluid rounded-start" alt="...">
     <div class="card-body">
       <h5 class="card-title">Title: <%= property.title %></h5>
       <p class="card-text">Description: <%= property.description %></p>
@@ -21,11 +21,16 @@
       <p class="card-text">Property Type: <%= property.propertyType %></p>
     
       <div class="form-group col-md-3">
-        <button type="submit" id="edit" class="btn btn-outline-dark">Edit Property</button>
-        <button type="submit" id="delete" class="btn btn-outline-dark">Delete Property</button>
-        <a href="/">Back to list</a>
+        <p>
+        <form action="/properties/delete/<%= property._id %>" method="POST">
+          <button type="submit" id="add" class="btn btn-outline-dark">Delete Property</button>
+      </form>        
+      <a class="btn btn-primary" href="/properties/update/<%= property._id %>" role="button">Edit Property</a>
+    </p>
+        
       </div>
-
+      
+      <a href="/">Back to list</a>
     
     </div>
   </div>
