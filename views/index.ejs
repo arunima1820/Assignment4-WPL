@@ -9,9 +9,9 @@
       <h1 class="display-5 fw-bold">AirBnB Application</h1>
       <p class="col-md-8 fs-4">Selected list of most popular properties</p>
       <a href="/properties/new" class="btn btn-primary btn-lg" type="button">Add Property</a>
+      <a href="/reservations/new" class="btn btn-primary btn-lg" type="button">New Reservation</a>
     </div>
   </div>
-
 
   <div class="row">
 
@@ -30,7 +30,7 @@
                 </p>
                 <p>
                   <a href="/properties/<%= property._id %>" class="btn btn-primary">Show</a>
-                  <a href="/properties/<%= property._id %>" class="btn btn-secondary">Edit</a> //TODO
+                  <a href="/properties/<%= property._id %>" class="btn btn-secondary">Edit</a>
                 </p>
                 <p class="card-text"><small class="text-muted"><%= property.location.city %>, <%= property.location.state %></small></p>
             </div>

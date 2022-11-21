@@ -1,21 +1,23 @@
 <%- include('partials/header') %>
-  <h1> Reservation Details </h1>
+<h1> Reservation Details </h1>
 
-  <p class="card-text">Status: <%= reservation.status %>
-  </p>
-  <p class="card-text">Check-In Date: <%= reservation.checkInDate %>
-  </p>
-  <p class="card-text">Check-Out Date: <%= reservation.checkOutDate %>
-  </p>
-  <p class="card-text">Amount Due: <%= reservation.amountDue %>
-  </p>
+<div class="card" style="width: 100%;">
 
-  <div class="form-group col-md-3">
-    <form action="/reservation/delete/<%= reservation._id %>" method="POST">
-      <button type="submit" id="add" class="btn btn-outline-dark">Cancel Reservation</button>
-    </form>
+    <h5 class="card-title">Reservation ID: <%= reservation._id %></h5>
+
+    <div class="card-body">
+      <p class="card-text">Check-In Date: <%= reservation.checkInDate %></p>
+      <p class="card-text">Check-Out Date: <%= reservation.checkOutDate %></p>
+      <p class="card-text">Amount Due: $<%= reservation.amountDue %></p>
+      <p class="card-text">Status: <%= reservation.status %></p>
+
+      <form action="/reservations/delete/<%= reservation._id %>" method="POST">
+        <button type="submit" id="add" class="btn btn-outline-dark">Cancel Reservation</button>
+      </form>
+    
+    </div>
   </div>
-  <a href="/">Back to list</a>
 
+  <a href="/reservations?userID=<%= reservation.guestID %>">Back to list</a>
 
   <%- include('partials/footer') %>

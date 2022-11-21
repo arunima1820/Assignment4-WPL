@@ -1,5 +1,4 @@
 var express = require('express');
-//var propertiesJSON = require("../properties.json")
 var router = express.Router();
 var monk = require('monk');
 var db = monk('localhost:27017/airbnb');
@@ -123,12 +122,55 @@ router.get('/reservations/new', function(req, res) {
 
 });
 
-router.get('/reservations', function(req, res) {
+router.get('/reservations', function(req, res, then) {
   collection_resrv.find({guestID: req.query.userID}, function (err, reservations) {
     if (err) throw err;
-    res.json(reservations); //TODO - show view
+    // reservations.forEach(reservation => {
+    //     db.collection('properties').findOne({'_id' : reservation.propertyID }, 
+    //     function(err, property) {
+    //       if (err) throw err;
+    //       data.append({ ...reservation, ...property})
+    //       console.log(data)
+    //     }
+    //       )
+    // })
+
+    db.collection('users').findOne({'_id' : req.query.userID }, function (err, user) {
+      if (err) throw err;
+
+      res.render('reservations', { reservations : reservations, user: user})
+          // res.json(reservations);
+
+    })
+    
+
   });
 }) 
+
+router.post('/reservations/delete/:id', function (req, res) {
+  collection_resrv.remove({ _id: req.params.id }, function (err, reservation) {
+    if (err) throw err;
+    res.redirect('/properties');
+  });
+})
+
+router.delete('/reservations/:id', function (req, res) {
+  collection_resrv.remove({ _id: req.params.id }, function (err, reservation) {
+    if (err) throw err;
+    res.redirect('/properties');
+  });
+});
+
+
+
+router.get('/reservations/:id', function(req, res) {
+  collection_resrv.findOne({ '_id': req.params.id}, function(err, reservation ){
+      if (err) throw err;
+      // res.json(reservations);
+      res.render('showReservation', {reservation : reservation})
+      });
+});
+  
 
 router.get('/reservations/:id', function (req, res) {
   var data = {}
@@ -141,7 +183,7 @@ router.get('/reservations/:id', function (req, res) {
     if (err) throw err;
     data[property] = property
   });
-  res.render('show_reservation', data ); 
+  res.render('showReservation', data ); 
   console.log(data)
 
   

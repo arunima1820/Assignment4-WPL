@@ -1,20 +1,27 @@
 <%- include('partials/header') %>
 
 <div class="container">
+
 <form action="/reservations" method="POST">
-    <div class="form-group col-md-2">
+    <h2>New Reservation</h2>
+
+    <div class="form-group col-md-8">
         <label>Guest ID</label>
         <input type="text" id="guestID" name="guestID" class="form-control">
     </div>
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-8">
+        <label>Property ID</label>
+        <input type="text" id="propertyID" name="propertyID" class="form-control">
+    </div>
+    <div class="form-group col-md-8">
         <label>Check-In Date</label>
         <input type="text" id="checkInDate" name="checkInDate" class="form-control">
     </div>
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-8">
         <label>Check-Out Date</label>
         <input type="text" id="checkOutDate" name="checkOutDate" class="form-control">
     </div>
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-8">
         <label>Amount Due</label>
         <input type="text" id="amountDue" name="amountDue" class="form-control">
     </div>
