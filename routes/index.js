@@ -5,7 +5,6 @@ var db = monk('localhost:27017/airbnb');
 var collection = db.get('properties');
 var collection_resrv = db.get('reservations');
 
-
 router.get('/', function (req, res, next) {
   res.redirect('/properties');
 });
@@ -17,22 +16,6 @@ router.get('/properties', function (req, res) {
   });
 });
 
-
-router.post('/properties/delete/:id', function (req, res) {
-  collection.remove({ '_id': req.params.id }, function (err, property) {
-    if (err) throw err;
-    res.redirect('/properties')
-  })
-})
-
-router.get('/properties/update/:id', function (req, res) {
-  collection.findOne({ _id: req.params.id }, function (err, property) {
-    if (err) throw err;
-    res.render('update', { property: property });
-  });
-});
-
-
 router.put('/properties/:id', function (req, res) {
   collection.findOneAndUpdate({ '_id': req.params.id },
   {
@@ -40,7 +23,7 @@ router.put('/properties/:id', function (req, res) {
   },
   function (err, result) {
     if (err) throw err;
-    res.redirect('/properties');
+    res.status(200).send(result);
   });
 })
 
@@ -84,10 +67,25 @@ router.get('/properties/new', function (req, res) {
 router.get('/properties/:id', function (req, res) {
   collection.findOne({ _id: req.params.id }, function (err, property) {
     if (err) throw err;
-    res.render('show', { property: property });
+    res.json(property);
   });
 });
 
+
+router.post('/users', function(req, res) {
+  db.collection('users').insert({
+    name: req.body.name,
+    email: req.body.email,
+    phoneNumber: req.body.phoneNumber,
+    address: req.body.address,
+    password: encrypt(req.body.password),
+    billingInfo: {},
+    type: req.body.type
+  }, function (err, user) {
+    if (err) throw err;
+    res.send(user);
+  })
+})
 
 router.post('/properties', function (req, res) {
   collection.insert({
@@ -125,15 +123,6 @@ router.get('/reservations/new', function(req, res) {
 router.get('/reservations', function(req, res, then) {
   collection_resrv.find({guestID: req.query.userID}, function (err, reservations) {
     if (err) throw err;
-    // reservations.forEach(reservation => {
-    //     db.collection('properties').findOne({'_id' : reservation.propertyID }, 
-    //     function(err, property) {
-    //       if (err) throw err;
-    //       data.append({ ...reservation, ...property})
-    //       console.log(data)
-    //     }
-    //       )
-    // })
 
     db.collection('users').findOne({'_id' : req.query.userID }, function (err, user) {
       if (err) throw err;
@@ -164,10 +153,10 @@ router.delete('/reservations/:id', function (req, res) {
 router.post('/users', function(req, res) {
   db.collection('users').findOne({'email' : req.body.email }, function (err, user) {
     if (err) throw err;
-    if (user?.password != req.body.password)
+    if (user?.password != encrypt(req.body.password))
       res.status(404).send("Incorrect password")
     else
-      res.json(user)
+      res.json({...user, password: decrypt(user.password)})
   })
 })
 
