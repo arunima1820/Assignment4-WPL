@@ -13,7 +13,7 @@ router.get('/', function (req, res, next) {
 router.get('/properties', function (req, res) {
   collection.find({}, function (err, properties) {
     if (err) throw err;
-    res.render('index', { properties: properties });
+    res.json(properties)
   });
 });
 
@@ -161,7 +161,15 @@ router.delete('/reservations/:id', function (req, res) {
   });
 });
 
-
+router.post('/users', function(req, res) {
+  db.collection('users').findOne({'email' : req.body.email }, function (err, user) {
+    if (err) throw err;
+    if (user?.password != req.body.password)
+      res.status(404).send("Incorrect password")
+    else
+      res.json(user)
+  })
+})
 
 router.get('/reservations/:id', function(req, res) {
   collection_resrv.findOne({ '_id': req.params.id}, function(err, reservation ){
