@@ -4,6 +4,18 @@ var monk = require('monk');
 var db = monk('localhost:27017/airbnb');
 var collection = db.get('properties');
 var collection_resrv = db.get('reservations');
+const CryptoJS = require('crypto-js');
+var keyWords = CryptoJS.enc.Utf8.parse("123");
+var ivWords = CryptoJS.lib.WordArray.create([0, 0]);
+
+const encrypt = (text) => {
+  return CryptoJS.DES.encrypt(text, keyWords, { iv: ivWords }).toString(CryptoJS.enc.Utf8);
+};
+
+const decrypt = (data) => {
+  return CryptoJS.DES.decrypt({ ciphertext: data }, keyWords, { iv: ivWords }).toString(CryptoJS.enc.Utf8);
+  return CryptoJS.enc.Base64.parse(data).toString(CryptoJS.enc.Utf8);
+};
 
 router.get('/', function (req, res, next) {
   res.redirect('/properties');
@@ -18,13 +30,13 @@ router.get('/properties', function (req, res) {
 
 router.put('/properties/:id', function (req, res) {
   collection.findOneAndUpdate({ '_id': req.params.id },
-  {
-    $set: req.body
-  },
-  function (err, result) {
-    if (err) throw err;
-    res.status(200).send(result);
-  });
+    {
+      $set: req.body
+    },
+    function (err, result) {
+      if (err) throw err;
+      res.status(200).send(result);
+    });
 })
 
 
@@ -58,34 +70,12 @@ router.post('/properties/update/:id', function (req, res) {
     });
 });
 
-
-router.get('/properties/new', function (req, res) {
-  res.render('new');
-
-});
-
 router.get('/properties/:id', function (req, res) {
   collection.findOne({ _id: req.params.id }, function (err, property) {
     if (err) throw err;
     res.json(property);
   });
 });
-
-
-router.post('/users', function(req, res) {
-  db.collection('users').insert({
-    name: req.body.name,
-    email: req.body.email,
-    phoneNumber: req.body.phoneNumber,
-    address: req.body.address,
-    password: encrypt(req.body.password),
-    billingInfo: {},
-    type: req.body.type
-  }, function (err, user) {
-    if (err) throw err;
-    res.send(user);
-  })
-})
 
 router.post('/properties', function (req, res) {
   collection.insert({
@@ -114,60 +104,80 @@ router.post('/properties', function (req, res) {
   });
 });
 
-
-router.get('/reservations/new', function(req, res) {
-  res.render('new_reservation')
-
-});
-
-router.get('/reservations', function(req, res, then) {
-  collection_resrv.find({guestID: req.query.userID}, function (err, reservations) {
+router.get('/reservations', function (req, res, then) {
+  collection_resrv.find({ guestID: req.query.userID }, function (err, reservations) {
     if (err) throw err;
-
-    db.collection('users').findOne({'_id' : req.query.userID }, function (err, user) {
-      if (err) throw err;
-
-      res.render('reservations', { reservations : reservations, user: user})
-          // res.json(reservations);
-
-    })
-    
-
+    res.json(reservations);
   });
-}) 
+})
 
 router.post('/reservations/delete/:id', function (req, res) {
-  collection_resrv.remove({ _id: req.params.id }, function (err, reservation) {
+  collection_resrv.update({ _id: req.params.id }, { $set: { status: "inactive"}},  function (err, reservation) {
     if (err) throw err;
     res.redirect('/properties');
   });
 })
 
 router.delete('/reservations/:id', function (req, res) {
-  collection_resrv.remove({ _id: req.params.id }, function (err, reservation) {
+  collection_resrv.update({ _id: req.params.id }, { $set: { status: "inactive"}},  function (err, reservation) {
     if (err) throw err;
-    res.redirect('/properties');
+    res.send("Deleted reservation")
   });
 });
 
-router.post('/users', function(req, res) {
-  db.collection('users').findOne({'email' : req.body.email }, function (err, user) {
+router.post('/users', function (req, res) {
+  db.collection('users').findOne({ 'email': req.body.email }, function (err, user) {
     if (err) throw err;
-    if (user?.password != encrypt(req.body.password))
+    if (user?.password != req.body.password)
       res.status(404).send("Incorrect password")
     else
-      res.json({...user, password: decrypt(user.password)})
+      res.json({ ...user, password: user.password })
   })
 })
 
-router.get('/reservations/:id', function(req, res) {
-  collection_resrv.findOne({ '_id': req.params.id}, function(err, reservation ){
-      if (err) throw err;
-      // res.json(reservations);
-      res.render('showReservation', {reservation : reservation})
-      });
-});
+router.put('/users', function (req, res) {
+  db.collection('users').findOne({ 'email': req.body.email }, function (err, user) {
+    if (err) throw err;
+    if (user) {
+      console.log(user)
+      res.status(401).send("User Exists");
+    }
+
+    else {
+      db.collection('users').insert({
+        name: {
+          firstName: req.body.firstName,
+          lastName: req.body.lastName
+        },
+        email: req.body.email,
+        phoneNumber: req.body.phone,
+        address: req.body.address,
+        password: req.body.password,
+        billingInfo: {},
+        type: req.body.type
+      },
+        function (err, user) {
+          if (err) throw err;
+          else
+            res.json(user)
   
+        })
+    }
+  })
+
+
+
+
+})
+
+router.get('/reservations', function (req, res) {
+  collection_resrv.find({ 'guestID': req.query.userID }, function (err, reservations) {
+    if (err) throw err;
+    res.json(reservations);
+    // res.render('showReservation', { reservation: reservation })
+  });
+});
+
 
 router.get('/reservations/:id', function (req, res) {
   var data = {}
@@ -180,14 +190,14 @@ router.get('/reservations/:id', function (req, res) {
     if (err) throw err;
     data[property] = property
   });
-  res.render('showReservation', data ); 
+  res.render('showReservation', data);
   console.log(data)
 
-  
+
 });
 
 router.post('/reservations', function (req, res) {
-  
+
   collection_resrv.insert({
     guest_id: req.query.userId,
     check_in_date: req.body.check_in_date,
