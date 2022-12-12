@@ -2,7 +2,6 @@
   "_id": {
     "$oid": "637b035fa75e809394d9b477"
   },
-  "user_id": "0001",
   "name": {
     "firstName": "Joe",
     "lastName": "Stand"
@@ -21,7 +20,6 @@
   "_id": {
     "$oid": "637b035fa75e809394d9b478"
   },
-  "user_id": "0002",
   "name": {
     "firstName": "Jas",
     "lastName": "Capri"
@@ -36,4 +34,22 @@
     "billingAddress": "Franklin"
   },
   "type": "guest"
+},{
+  "_id": {
+    "$oid": "639624bc11d4035faee75065"
+  },
+"name": {
+  "firstName": "Cane",
+  "lastName": "Culber"
+},
+"email": "CaneCulber0003@example.com",
+"phoneNumber": "469-321-1234",
+"address": "Commons",
+"password": "mercado",
+"billingInfo": {
+  "cardNumber": "5432109876",
+  "securityCode": "134",
+  "billingAddress": "Commons"
+},
+"type": "host"
 }]
