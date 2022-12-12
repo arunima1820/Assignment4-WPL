@@ -2,7 +2,7 @@
   "_id": {
     "$oid": "637afd9fa75e809394d9b46f"
   },
-  "property_id": "637915c4a75e809394d9b460",
+  "propertyID": "637915c4a75e809394d9b460",
   "guestID": "637b035fa75e809394d9b478",
   "status": "active",
   "checkInDate": "01/15/2023",
@@ -12,7 +12,7 @@
   "_id": {
     "$oid": "637b0f24a75e809394d9b48f"
   },
-  "property_id": "637915c4a75e809394d9b461",
+  "propertyID": "637915c4a75e809394d9b461",
   "guestID": "637b035fa75e809394d9b478",
   "status": "active",
   "checkInDate": "02/15/2023",
