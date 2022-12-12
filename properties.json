@@ -2,7 +2,9 @@
   "_id": {
     "$oid": "637915c4a75e809394d9b460"
   },
+  "hostID": "637b035fa75e809394d9b477",
   "title": "Sandy Beach Estate: Gated, 9100 sq ft Estate with Pool, Hot Tub, Game Room! Perfect for Events!",
+  "status": "active",
   "description": "Sandy Beach Estate is an expansive, luxury vacation rental in a tucked away neighborhood in Miramar Beach. With over 9,000 sq feet of living space, this luxury home offers luxurious furnishings and finishes, a large game room, and a courtyard fit for events with a private pool and bar! Thirteen bedrooms offer sleeping accommodations for up to 40 guests in this gated estate and the pool area features a full bar complete with a flat-screen TV, sink, two gas grills, and seating for eight. Lounge in the spa tub or take a dip in the private pool (can be heated for an additional fee) while basking in the Florida sunshine. Take in the Gulf views from multiple balconies in the home or walk the short distance to relax on the beach for the day. Sandy Beach Estate emits luxury in every aspect and is sure to help you and your family create memories to last a lifetime. ",
   "pricePerNight": "$2,627",
   "serviceFee": "$2,128",
@@ -24,7 +26,9 @@
   "_id": {
     "$oid": "637915c4a75e809394d9b461"
   },
+  "hostID": "639624bc11d4035faee75065",
   "title": "Epic view lakehouse with huge waterfront backyard!",
+  "status": "active",
   "description": "Pictures do not do justice to the lake views from the backyard. Recently renovated home with an open floor plan facing the lake. Brand new updated furniture! This house features 2 bedrooms and 2 bathrooms sitting on 2 lots of waterfront land. The upstairs boat dock and covered patio is perfect for late nights. Cedar Creek Lake welcomes plenty to swim, boat and fish. Facing the lake is a large backyard with picnic tables. The fire pit is fun to gather around. Quaint home for relaxing getaways!",
   "pricePerNight": "$166",
   "serviceFee": "$184",
@@ -45,7 +49,9 @@
   "_id": {
     "$oid": "637915c4a75e809394d9b462"
   },
+  "hostID": "637b035fa75e809394d9b477",
   "title": "Yellow & Blue: Elegant Container Tiny House",
+  "status": "active",
   "description": "Try out container home living in this unique tiny home! Sleeps 2 people in the custom Murphy® bed with a super-comfy Tuft & Needle™ queen size mattress. Kitchen and dining area features induction cooktop, fridge and custom knotty alder tabletop. Hang out on the spacious rooftop deck that lights up beautifully at night with the color-adjustable LED rail lights. Full-size, custom tiled shower and spacious bathroom completes this fascinating container home.",
   "pricePerNight": "$90",
   "serviceFee": "$68",
@@ -66,7 +72,9 @@
   "_id": {
     "$oid": "637915c4a75e809394d9b463"
   },
+  "hostID": "639624bc11d4035faee75065",
   "title": "Mid-century masterpiece with pond and panoramas",
+  "status": "active",
   "description": "A gentle stream feeds into the placid pond surrounding this designer mountain estate with panoramic views of the San Juan Mountains. Take a glass of vino across a foot bridge and sip around the sunken fire pit, or head inside the soaring interiors to admire the wild beauty of the West through floor-to-ceiling glass walls. You’re minutes from the slopes, with the Alta Lakes a short drive further. Copyright © Luxury Retreats. All rights reserved.",
   "pricePerNight": "$13,333",
   "serviceFee": "$7,505",
@@ -87,7 +95,9 @@
   "_id": {
     "$oid": "637915c4a75e809394d9b464"
   },
+  "hostID": "637b035fa75e809394d9b477",
   "title": "The Nest of Hot Springs",
+  "status": "active",
   "description": "Hi :)",
   "pricePerNight": "$399",
   "serviceFee": "$293",
@@ -104,12 +114,4 @@
   "pets": "Pets allowed",
   "propertyType": "Tent",
   "img": "Nest_of_Hot_Springs.png"
-},{
-  "_id": {
-    "$oid": "637aa336fe2c906408374d2d"
-  },
-  "title": "",
-  "genre": "",
-  "img": "",
-  "description": "        "
 }]
