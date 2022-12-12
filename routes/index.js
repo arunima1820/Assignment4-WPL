@@ -145,34 +145,23 @@ router.put('/users', function (req, res) {
   })
 })
 
-
-router.get('/reservations', function (req, res, then) {
-  collection_resrv.find({ guestID: req.query.userID }, function (err, reservations) {
-    if (err) throw err;
-    res.json(reservations);
-  });
-})
-
 router.delete('/reservations/:id', function (req, res) {
-  collection_resrv.update({ _id: req.params.id }, { $set: { status: "inactive" } }, function (err, reservation) {
+  db.collection('reservations').update({ _id: req.params.id }, { $set: { status: "inactive" } }, function (err, reservation) {
     if (err) throw err;
     res.send("Deleted reservation")
   });
 });
 
-router.get('/reservations/:id', function (req, res) {
-  var data = {}
-  collection_resrv.findOne({ _id: req.params.id }, function (err, reservation) {
-    if (err) throw err;
-    data[reservation] = reservation
 
-  });
-  collection.findOne({ _id: data[reservation].propertyID }, function (err, property) {
-    if (err) throw err;
-    data[property] = property
-  });
-  res.render('showReservation', data);
-  console.log(data)
+router.get('/reservations', async function (req, res) {
+  const reservations = await db.collection('reservations').find({ guestID: req.query.guestID }, function(err, reservations) {if (err) throw err})
+  const property = []
+  for (let i = 0; i < reservations.length; i++) {
+    let data = await db.collection('properties').findOne({ _id: reservations[i].propertyID }, function(err, property) {if (err) throw err})
+    property.push({property: {...data}, reservation: {...reservations[i]}})
+  }
+  console.log(property)
+  res.json(property)
 });
 
 router.post('/reservations', function (req, res) {
@@ -199,11 +188,6 @@ router.post('/reservations', function (req, res) {
         });
       }
     })
-  // console.log(output)
-  // if (output > 0) {
-  //   res.status(304).send("Reservation already exists")
-  // } else {
-
 });
 
 module.exports = router;
