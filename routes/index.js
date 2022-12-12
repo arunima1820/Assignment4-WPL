@@ -14,7 +14,6 @@ const encrypt = (text) => {
 
 const decrypt = (data) => {
   return CryptoJS.DES.decrypt({ ciphertext: data }, keyWords, { iv: ivWords }).toString(CryptoJS.enc.Utf8);
-  return CryptoJS.enc.Base64.parse(data).toString(CryptoJS.enc.Utf8);
 };
 
 router.get('/', function (req, res, next) {
@@ -98,32 +97,10 @@ router.post('/properties', function (req, res) {
     img: req.body.image,
   }, function (err, property) {
     if (err) throw err;
-    // if insert is successfull, it will return newly inserted object
-    //res.json(video);
     res.redirect('/properties');
   });
 });
 
-router.get('/reservations', function (req, res, then) {
-  collection_resrv.find({ guestID: req.query.userID }, function (err, reservations) {
-    if (err) throw err;
-    res.json(reservations);
-  });
-})
-
-router.post('/reservations/delete/:id', function (req, res) {
-  collection_resrv.update({ _id: req.params.id }, { $set: { status: "inactive"}},  function (err, reservation) {
-    if (err) throw err;
-    res.redirect('/properties');
-  });
-})
-
-router.delete('/reservations/:id', function (req, res) {
-  collection_resrv.update({ _id: req.params.id }, { $set: { status: "inactive"}},  function (err, reservation) {
-    if (err) throw err;
-    res.send("Deleted reservation")
-  });
-});
 
 router.post('/users', function (req, res) {
   db.collection('users').findOne({ 'email': req.body.email }, function (err, user) {
@@ -136,6 +113,8 @@ router.post('/users', function (req, res) {
 })
 
 router.put('/users', function (req, res) {
+  console.log(req.body)
+
   db.collection('users').findOne({ 'email': req.body.email }, function (err, user) {
     if (err) throw err;
     if (user) {
@@ -164,20 +143,22 @@ router.put('/users', function (req, res) {
         })
     }
   })
-
-
-
-
 })
 
-router.get('/reservations', function (req, res) {
-  collection_resrv.find({ 'guestID': req.query.userID }, function (err, reservations) {
+
+router.get('/reservations', function (req, res, then) {
+  collection_resrv.find({ guestID: req.query.userID }, function (err, reservations) {
     if (err) throw err;
     res.json(reservations);
-    // res.render('showReservation', { reservation: reservation })
+  });
+})
+
+router.delete('/reservations/:id', function (req, res) {
+  collection_resrv.update({ _id: req.params.id }, { $set: { status: "inactive"}},  function (err, reservation) {
+    if (err) throw err;
+    res.send("Deleted reservation")
   });
 });
-
 
 router.get('/reservations/:id', function (req, res) {
   var data = {}
@@ -192,25 +173,32 @@ router.get('/reservations/:id', function (req, res) {
   });
   res.render('showReservation', data);
   console.log(data)
-
-
 });
 
 router.post('/reservations', function (req, res) {
-
-  collection_resrv.insert({
-    guest_id: req.query.userId,
-    check_in_date: req.body.check_in_date,
-    check_out_date: req.body.check_out_date,
-    amount_due: req.body.amount_due
-  }, function (err, reservation) {
+  let body = {
+    guestID: req.body.guestID,
+    checkInDate: new Date(req.body.checkInDate),
+    checkOutDate: new Date (req.body.checkOutDate),
+    amountDue: req.body.amountDue,
+    status: req.body.status,
+    propertyID: req.body.propertyID
+  }
+  db.collection('reservations').find(
+    {'checkInDate':{'$lte': body.checkInDate}, 'checkOutDate': {'$gte': body.checkOutDate}, 'status': 'active', 'propertyID': body.propertyID}, 
+  function(err, reservations) {
     if (err) throw err;
-    // if insert is successfull, it will return newly inserted object
-    //res.json(video);
-    res.redirect('/properties');
-  });
+    console.log(reservations)
+  })
+  // console.log(output)
+  // if (output > 0) {
+  //   res.status(304).send("Reservation already exists")
+  // } else {
+  // db.collection('reservations').insert(body, function (err, reservation) {
+  //   if (err) throw err;
+  //   res.send(reservation)
+  // });
+// }
 });
-
-
 
 module.exports = router;
