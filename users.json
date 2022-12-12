@@ -43,7 +43,7 @@
   "lastName": "Culber"
 },
 "email": "CaneCulber0003@example.com",
-"phoneNumber": "469-321-1234",
+"phoneNumber": "4693211234",
 "address": "Commons",
 "password": "mercado",
 "billingInfo": {
@@ -52,4 +52,22 @@
   "billingAddress": "Commons"
 },
 "type": "host"
+},{
+  "_id": {
+    "$oid": "639789fd6e24ffcf68991341"
+  },
+  "name": {
+    "firstName": "Jose",
+    "lastName": "Rodriguez"
+  },
+  "email": "joserod0004@example.com",
+  "phoneNumber": "4697894320",
+  "address": "Almendra",
+  "password": "Mathews",
+  "billingInfo": {
+    "cardNumber": "2356891234",
+    "securityCode": "544",
+    "billingAddress": "Almendra"
+  },
+  "type": "guest"
 }]
