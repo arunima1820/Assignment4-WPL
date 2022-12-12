@@ -139,7 +139,7 @@ router.put('/users', function (req, res) {
           if (err) throw err;
           else
             res.json(user)
-  
+
         })
     }
   })
@@ -154,7 +154,7 @@ router.get('/reservations', function (req, res, then) {
 })
 
 router.delete('/reservations/:id', function (req, res) {
-  collection_resrv.update({ _id: req.params.id }, { $set: { status: "inactive"}},  function (err, reservation) {
+  collection_resrv.update({ _id: req.params.id }, { $set: { status: "inactive" } }, function (err, reservation) {
     if (err) throw err;
     res.send("Deleted reservation")
   });
@@ -179,26 +179,31 @@ router.post('/reservations', function (req, res) {
   let body = {
     guestID: req.body.guestID,
     checkInDate: new Date(req.body.checkInDate),
-    checkOutDate: new Date (req.body.checkOutDate),
+    checkOutDate: new Date(req.body.checkOutDate),
     amountDue: req.body.amountDue,
     status: req.body.status,
     propertyID: req.body.propertyID
   }
   db.collection('reservations').find(
-    {'checkInDate':{'$lte': body.checkInDate}, 'checkOutDate': {'$gte': body.checkOutDate}, 'status': 'active', 'propertyID': body.propertyID}, 
-  function(err, reservations) {
-    if (err) throw err;
-    console.log(reservations)
-  })
+    { 'checkInDate': { '$lte': body.checkInDate }, 'checkOutDate': { '$gte': body.checkOutDate }, 'status': 'active', 'propertyID': body.propertyID },
+    function (err, reservations) {
+      if (err) throw err;
+      if (reservations.length > 0) {
+        console.log(reservations)
+        res.status(304).json(reservations)
+      }
+      else {
+        db.collection('reservations').insert(body, function (err, reservation) {
+          if (err) throw err;
+          res.send(reservation)
+        });
+      }
+    })
   // console.log(output)
   // if (output > 0) {
   //   res.status(304).send("Reservation already exists")
   // } else {
-  // db.collection('reservations').insert(body, function (err, reservation) {
-  //   if (err) throw err;
-  //   res.send(reservation)
-  // });
-// }
+
 });
 
 module.exports = router;
