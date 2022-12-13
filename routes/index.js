@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var monk = require('monk');
-var db = monk('localhost:27017/airbnb');
+var db = monk('localhost:27017/wpl-assign4');
 var collection = db.get('properties');
 var collection_resrv = db.get('reservations');
 const CryptoJS = require('crypto-js');
@@ -188,6 +188,17 @@ router.post('/reservations', function (req, res) {
         });
       }
     })
+});
+
+router.get('/favorites', async function (req, res) {
+  const reservations = await db.collection('favorites').find({ guestID: req.query.guestID }, function(err, reservations) {if (err) throw err})
+  const property = []
+  for (let i = 0; i < reservations.length; i++) {
+    let data = await db.collection('properties').findOne({ _id: reservations[i].propertyID }, function(err, property) {if (err) throw err})
+    property.push(data)
+  }
+  // console.log(property)
+  res.json(property)
 });
 
 module.exports = router;
