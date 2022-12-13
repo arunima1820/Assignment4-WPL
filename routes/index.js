@@ -188,9 +188,16 @@ router.get('/favorites', async function (req, res) {
 });
 
 router.post('/favorites', function (req, res) {
-  db.collection('favorites').insert({
+  db.collection('favorites').update({
     propertyID: req.body.propertyID,
     guestID: req.body.guestID
+  }, {
+    $set: {
+      propertyID: req.body.propertyID,
+      guestID: req.body.guestID
+    }
+  }, {
+    upsert: true
   }, function (err, favorite) {
     if (err) throw err;
     res.send();
@@ -198,8 +205,9 @@ router.post('/favorites', function (req, res) {
 });
 
 
-router.delete('/favorites', function (req, res) {
-  db.collection('favorites').remove({
+router.put('/favorites', function (req, res) {
+  console.log(req.body)
+  db.collection('favorites').findOneAndDelete({
     propertyID: req.body.propertyID,
     guestID: req.body.guestID
   }, function (err, favorite) {
