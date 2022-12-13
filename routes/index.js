@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var monk = require('monk');
 var db = monk('localhost:27017/wpl-assign4');
+// var db = monk('localhost:27017/airbnb');
+
 var collection = db.get('properties');
 var collection_resrv = db.get('reservations');
 const CryptoJS = require('crypto-js');
@@ -17,7 +19,11 @@ const decrypt = (data) => {
 };
 
 router.get('/properties', function (req, res) {
-  collection.find({}, function (err, properties) {
+  let query = {}
+  if (req.query.hostID) {
+    query = { hostID: req.query.hostID }
+  }
+  collection.find(query, function (err, properties) {
     if (err) throw err;
     res.json(properties)
   });
@@ -41,12 +47,12 @@ router.get('/properties/:id', function (req, res) {
   });
 });
 
-router.get('/properties', function (req, res) {
-  db.collection('properties').find({ hostID: req.query.hostID }, function(err, properties) {
-    if (err) throw err
-    res.json(properties)
-  })
-})
+// router.get('/properties', function (req, res) {
+//   db.collection('properties').find({ hostID: req.query.hostID }, function(err, properties) {
+//     if (err) throw err
+//     res.json(properties)
+//   })
+// })
 
 router.post('/properties', function (req, res) {
   db.collection('properties').insert({
@@ -135,11 +141,11 @@ router.delete('/reservations/:id', function (req, res) {
 
 
 router.get('/reservations', async function (req, res) {
-  const reservations = await db.collection('reservations').find({ guestID: req.query.guestID }, function(err, reservations) {if (err) throw err})
+  const reservations = await db.collection('reservations').find({ guestID: req.query.guestID }, function (err, reservations) { if (err) throw err })
   const property = []
   for (let i = 0; i < reservations.length; i++) {
-    let data = await db.collection('properties').findOne({ _id: reservations[i].propertyID }, function(err, property) {if (err) throw err})
-    property.push({property: {...data}, reservation: {...reservations[i]}})
+    let data = await db.collection('properties').findOne({ _id: reservations[i].propertyID }, function (err, property) { if (err) throw err })
+    property.push({ property: { ...data }, reservation: { ...reservations[i] } })
   }
   res.json(property)
 });
@@ -171,14 +177,34 @@ router.post('/reservations', function (req, res) {
 });
 
 router.get('/favorites', async function (req, res) {
-  const reservations = await db.collection('favorites').find({ guestID: req.query.guestID }, function(err, reservations) {if (err) throw err})
+  const reservations = await db.collection('favorites').find({ guestID: req.query.guestID }, function (err, reservations) { if (err) throw err })
   const property = []
   for (let i = 0; i < reservations.length; i++) {
-    let data = await db.collection('properties').findOne({ _id: reservations[i].propertyID }, function(err, property) {if (err) throw err})
+    let data = await db.collection('properties').findOne({ _id: reservations[i].propertyID }, function (err, property) { if (err) throw err })
     property.push(data)
   }
   // console.log(property)
   res.json(property)
 });
 
+router.post('/favorites', function (req, res) {
+  db.collection('favorites').insert({
+    propertyID: req.body.propertyID,
+    guestID: req.body.guestID
+  }, function (err, favorite) {
+    if (err) throw err;
+    res.send();
+  });
+});
+
+
+router.delete('/favorites', function (req, res) {
+  db.collection('favorites').remove({
+    propertyID: req.body.propertyID,
+    guestID: req.body.guestID
+  }, function (err, favorite) {
+    if (err) throw err;
+    res.send();
+  });
+});
 module.exports = router;
