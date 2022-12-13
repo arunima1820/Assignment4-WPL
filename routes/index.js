@@ -16,10 +16,6 @@ const decrypt = (data) => {
   return CryptoJS.DES.decrypt({ ciphertext: data }, keyWords, { iv: ivWords }).toString(CryptoJS.enc.Utf8);
 };
 
-router.get('/', function (req, res, next) {
-  res.redirect('/properties');
-});
-
 router.get('/properties', function (req, res) {
   collection.find({}, function (err, properties) {
     if (err) throw err;
@@ -34,40 +30,9 @@ router.put('/properties/:id', function (req, res) {
     },
     function (err, result) {
       if (err) throw err;
-      res.status(200).send(result);
+      res.send(result);
     });
 })
-
-
-router.post('/properties/update/:id', function (req, res) {
-  collection.findOneAndUpdate({ '_id': req.params.id },
-    {
-      $set:
-      {
-        title: req.body.title,
-        description: req.body.desc,
-        pricePerNight: req.body.pricePerNight,
-        serviceFee: req.body.serviceFee,
-        cleaningFee: req.body.cleaningFee,
-        bedrooms: req.body.bedrooms,
-        beds: req.body.beds,
-        bathrooms: req.body.bathrooms,
-        location: {
-          city: req.body.city,
-          state: req.body.state,
-          country: req.body.country
-        },
-        pets: req.body.pets,
-        smoking: req.body.smoking,
-        propertyType: req.body.propertyType,
-        img: req.body.image,
-      }
-    },
-    function (err, result) {
-      if (err) throw err;
-      res.redirect('/properties');
-    });
-});
 
 router.get('/properties/:id', function (req, res) {
   collection.findOne({ _id: req.params.id }, function (err, property) {
@@ -76,10 +41,17 @@ router.get('/properties/:id', function (req, res) {
   });
 });
 
+router.get('/properties', function (req, res) {
+  db.collection('properties').find({ hostID: req.query.hostID }, function(err, properties) {
+    if (err) throw err
+    res.json(properties)
+  })
+})
+
 router.post('/properties', function (req, res) {
-  collection.insert({
+  db.collection('properties').insert({
     title: req.body.title,
-    description: req.body.desc,
+    description: req.body.description,
     pricePerNight: req.body.pricePerNight,
     serviceFee: req.body.serviceFee,
     cleaningFee: req.body.cleaningFee,
@@ -94,10 +66,19 @@ router.post('/properties', function (req, res) {
     pets: req.body.pets,
     smoking: req.body.smoking,
     propertyType: req.body.propertyType,
-    img: req.body.image,
+    img: req.body.img,
+    status: req.body.status,
+    hostID: req.body.hostID
   }, function (err, property) {
     if (err) throw err;
-    res.redirect('/properties');
+    res.json(property);
+  });
+});
+
+router.delete('/properties/:id', function (req, res) {
+  db.collection('properties').update({ _id: req.params.id }, { $set: { status: "inactive" } }, function (err, property) {
+    if (err) throw err;
+    res.json(property)
   });
 });
 
@@ -160,7 +141,6 @@ router.get('/reservations', async function (req, res) {
     let data = await db.collection('properties').findOne({ _id: reservations[i].propertyID }, function(err, property) {if (err) throw err})
     property.push({property: {...data}, reservation: {...reservations[i]}})
   }
-  console.log(property)
   res.json(property)
 });
 
